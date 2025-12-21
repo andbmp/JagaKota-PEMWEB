@@ -2,11 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    return view('login');
+});
+
 // Route untuk menampilkan halaman login
 Route::get('/login', function () {
     return view('login');
 });
-
+Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
 // Route Halaman Daftar (Register) - TAMBAHKAN INI
 Route::get('/register', function () {
     return view('register');
@@ -14,8 +18,8 @@ Route::get('/register', function () {
 
 // Route Dashboard
 Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+    return view('dashboard'); // Pastikan Anda punya file resources/views/dashboard.blade.php
+})->name('dashboard');
 
 // Route untuk halaman Laporan
 Route::get('/laporan', function () {

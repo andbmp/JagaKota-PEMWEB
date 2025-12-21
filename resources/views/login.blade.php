@@ -97,29 +97,30 @@
         
         <div class="divider"></div>
 
-        <form action="" method="POST">
-            @csrf <div class="mb-3">
-                <label for="email" class="form-label">Pos-el</label>
-                <input type="email" class="form-control form-control-custom" id="email" placeholder="Pengguna@gmail.com">
-            </div>
+        {{-- Ganti action agar mengarah ke pintu yang benar: /api/login --}}
+<form action="{{ url('/api/login') }}" method="POST">
+    @csrf 
+    
+    <div class="mb-3">
+        <label for="email" class="form-label">Pos-el</label>
+        {{-- WAJIB: Tambahkan atribut name="email" agar data terbaca oleh Laravel --}}
+        <input type="email" name="email" class="form-control form-control-custom" id="email" placeholder="Pengguna@gmail.com" required>
+    </div>
 
-            <div class="mb-4">
-                <label for="password" class="form-label">Kata Sandi</label>
-                <input type="password" class="form-control form-control-custom" id="password" placeholder="KataSandi">
-            </div>
+    <div class="mb-4">
+        <label for="password" class="form-label">Kata Sandi</label>
+        {{-- WAJIB: Tambahkan atribut name="password" --}}
+        <input type="password" name="password" class="form-control form-control-custom" id="password" placeholder="KataSandi" required>
+    </div>
 
-            <div class="d-grid gap-2 mb-3">
-                <button type="submit" class="btn btn-sage">Masuk</button>
-            </div>
+    <div class="d-grid gap-2 mb-3">
+        <button type="submit" class="btn btn-sage">Masuk</button>
+    </div>
 
-            <div class="d-grid gap-2">
-                 <a href="{{ url('/register') }}" class="btn btn-outline-sage">Daftar Baru</a>
-            </div>
-
-            <div class="text-end mt-4">
-                <a href="{{ url('/admin/dashboard') }}" class="admin-link">Mode Admin</a>
-            </div>
-        </form>
+    <div class="d-grid gap-2">
+         <a href="{{ url('/register') }}" class="btn btn-outline-sage">Daftar Baru</a>
+    </div>
+</form>
     </div>
     
     <div style="height: 50px;"></div>
