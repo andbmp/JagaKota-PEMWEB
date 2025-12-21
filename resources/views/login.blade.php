@@ -117,7 +117,7 @@
             </div>
 
             <div class="text-end mt-4">
-                <a href="#" class="admin-link">Mode Admin</a>
+                <a href="{{ url('/admin/dashboard') }}" class="admin-link">Mode Admin</a>
             </div>
         </form>
     </div>

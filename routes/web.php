@@ -51,3 +51,18 @@ Route::get('/profile/riwayat', function () {
 Route::get('/leaderboard', function () {
     return view('leaderboard');
 });
+
+// Route Admin Dashboard
+Route::get('/admin/dashboard', function () {
+    return view('admin_dashboard');
+});
+
+// Route Admin Laporan
+Route::get('/admin/laporan', function () {
+    return view('admin_laporan');
+});
+
+// Route Admin Progress
+Route::get('/admin/progress', function () {
+    return view('admin_progress');
+});
