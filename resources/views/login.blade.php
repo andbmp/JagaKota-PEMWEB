@@ -98,6 +98,15 @@
         <div class="divider"></div>
 
         {{-- Ganti action agar mengarah ke pintu yang benar: /api/login --}}
+        @if ($errors->any())
+    <div class="alert alert-danger" style="color: red; background: #fdd; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form action="{{ url('/api/login') }}" method="POST">
     @csrf 
     

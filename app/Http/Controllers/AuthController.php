@@ -40,12 +40,15 @@ public function login(Request $request)
 
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
-        return redirect()->intended('dashboard'); // Pindah ke dashboard
+        
+        // PASTIIN INI TERTULIS:
+        return redirect()->intended('dashboard'); 
     }
 
+    // JIKA GAGAL:
     return back()->withErrors([
         'email' => 'Email atau password salah.',
-    ])->onlyInput('email');
+    ]);
 }
 
     // Logout user

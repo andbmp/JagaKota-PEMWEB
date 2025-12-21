@@ -1,11 +1,12 @@
 <?php
-
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('login');
 });
-
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
 // Route untuk menampilkan halaman login
 Route::get('/login', function () {
     return view('login');
@@ -18,8 +19,8 @@ Route::get('/register', function () {
 
 // Route Dashboard
 Route::get('/dashboard', function () {
-    return view('dashboard'); // Pastikan Anda punya file resources/views/dashboard.blade.php
-})->name('dashboard');
+    return view('dashboard'); // Pastikan file dashboard.blade.php ada
+})->middleware('auth'); // Tambahkan middleware auth agar aman
 
 // Route untuk halaman Laporan
 Route::get('/laporan', function () {
