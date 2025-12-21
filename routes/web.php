@@ -31,3 +31,23 @@ Route::get('/laporan/detail', function () {
 Route::get('/laporan/buat', function () {
     return view('buat_laporan');
 });
+
+// Route Halaman Profil
+Route::get('/profile', function () {
+    return view('profile');
+});
+
+// Route Halaman Edit Profil
+Route::get('/profile/edit', function () {
+    return view('edit_profile');
+});
+
+// Route Halaman Riwayat Laporan
+Route::get('/profile/riwayat', function () {
+    return view('riwayat_laporan');
+});
+
+// Route Papan Peringkat
+Route::get('/leaderboard', function () {
+    return view('leaderboard');
+});
