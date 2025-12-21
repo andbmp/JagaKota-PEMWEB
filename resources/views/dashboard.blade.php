@@ -9,22 +9,7 @@
         background-color: #FEF9F0; /* Warna dasar krem */
     }
     
-    /* Navbar Styling */
-    .navbar-custom {
-        background-color: #FEF9F0;
-        padding: 15px 0;
-    }
-    .nav-link {
-        color: #333;
-        font-weight: 600;
-        margin: 0 10px;
-    }
-    .nav-link.active-pill {
-        background-color: #8D8D8D; /* Warna abu-abu tombol aktif sesuai gambar */
-        color: white !important;
-        border-radius: 20px;
-        padding: 5px 20px;
-    }
+
     
     /* Hero Section */
     .hero-card {
@@ -149,42 +134,6 @@
         text-decoration: none;
     }
 </style>
-
-<nav class="navbar navbar-expand-lg navbar-custom">
-  <div class="container">
-    <a class="navbar-brand d-flex align-items-center" href="#">
-        <<img src="{{ asset('public/image/JagaKotaa.svg') }}" alt="Logo JagaKota" width="40" height="40" class="d-inline-block align-text-top me-2">
-        <span class="fw-bold" style="color: #B88A4D;">JagaKota</span>
-    </a>
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active-pill" aria-current="page" href="#">Beranda</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url('/laporan') }}">Laporan</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url('/laporan/buat') }}">Buat Laporan</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="d-flex align-items-center">
-        <<a href="{{ url('/profile') }}" class="text-dark">>
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-            </svg>
-        </a>
-    </div>
-  </div>
-</nav>
 
 <div class="container py-4">
     
