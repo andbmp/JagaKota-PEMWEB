@@ -107,7 +107,20 @@
         </ul>
     </div>
 @endif
-<form action="{{ url('/api/login') }}" method="POST">
+
+@if ($errors->any())
+    <div style="background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #f5c6cb;">
+        <strong>Login Gagal!</strong>
+        <ul style="margin-bottom: 0; padding-left: 20px;">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+<form action="{{ url('/login') }}" method="POST">
+
     @csrf 
     
     <div class="mb-3">

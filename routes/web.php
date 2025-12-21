@@ -17,10 +17,9 @@ Route::get('/register', function () {
     return view('register');
 });
 
-// Route Dashboard
 Route::get('/dashboard', function () {
     return view('dashboard'); // Pastikan file dashboard.blade.php ada
-})->middleware('auth'); // Tambahkan middleware auth agar aman
+})->middleware('auth');
 
 // Route untuk halaman Laporan
 Route::get('/laporan', function () {

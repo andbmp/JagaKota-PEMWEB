@@ -12,20 +12,22 @@ class AuthController extends Controller
     // Register a new user
     public function register(Request $request)
 {
+    // 1. Ubah validasi agar tidak error saat NIK/Phone kosong
     $validated = $request->validate([
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:8|confirmed',
-        'nik' => 'required|string|max:20',
-        'phone' => 'required|string|max:15',
+        'nik' => 'nullable|string|max:20',    // Ganti required jadi nullable
+        'phone' => 'nullable|string|max:15',  // Ganti required jadi nullable
     ]);
 
-    $user = User::create([
-        'name' => $validated['name'],
-        'email' => $validated['email'],
-        'password' => Hash::make($validated['password']),
-        // Pastikan nik dan phone sudah ada di fillable Model User
-    ]);
+$user = User::create([
+    'name'     => $validated['name'],
+    'email'    => $validated['email'],
+    'password' => Hash::make((string)$validated['password']), // Tambahkan (string)
+    'nik'      => $request->nik ?? null,
+    'phone'    => $request->phone ?? null,
+]);
 
     Auth::login($user); // Otomatis login setelah daftar
     return redirect('/dashboard'); // Pindah ke dashboard
@@ -33,22 +35,26 @@ class AuthController extends Controller
 
 public function login(Request $request)
 {
-    $credentials = $request->validate([
+    $request->validate([
         'email' => 'required|email',
         'password' => 'required',
     ]);
 
-    if (Auth::attempt($credentials)) {
-        $request->session()->regenerate();
+    $user = \App\Models\User::where('email', $request->email)->first();
+
+    // Kita sudah tahu password cocok dari hasil debug tadi
+    if ($user && \Illuminate\Support\Facades\Hash::check($request->password, $user->password)) {
         
-        // PASTIIN INI TERTULIS:
-        return redirect()->intended('dashboard'); 
+        // Memulai session login
+        \Illuminate\Support\Facades\Auth::login($user, true); // true = remember me
+        
+        $request->session()->regenerate();
+
+        // Paksa pindah ke dashboard
+        return redirect()->intended('/dashboard');
     }
 
-    // JIKA GAGAL:
-    return back()->withErrors([
-        'email' => 'Email atau password salah.',
-    ]);
+    return back()->withErrors(['email' => 'Login gagal, periksa kembali data Anda.']);
 }
 
     // Logout user
