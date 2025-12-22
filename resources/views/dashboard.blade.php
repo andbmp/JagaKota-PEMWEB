@@ -141,9 +141,11 @@
         <div class="col-md-5 mb-4 mb-md-0">
             <div class="hero-card h-100 d-flex flex-column justify-content-center">
                 <h2 class="fw-bold mb-3">Satu laporan untuk menjaga fasilitas kota</h2>
-                <div class="mb-4">
-                    <button class="btn btn-sage">Mulai</button>
-                </div>
+<div class="mb-4">
+    <a href="{{ url('/laporan') }}">
+        <button class="btn btn-sage">Mulai</button>
+    </a>
+</div>
                 <p class="text-muted small">Fasilitas rusak bikin ribet? JagaKota menjadi solusi cepat.</p>
             </div>
         </div>
@@ -184,7 +186,7 @@
                     </button>
                 </h2>
                 <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-                    <div class="accordion-body text-start">JagaKota adalah platform pelaporan fasilitas publik...</div>
+                    <div class="accordion-body text-start">JagaKota adalah platform pelaporan fasilitas publik yang bisa diakses masyarakat, user dapat dengan cepat dan mudah melaporkan kerusakan atau mengajukan perbaikan untuk fasilitas yang sudah tidak layak pakai</div>
                 </div>
             </div>
             <div class="accordion-item">

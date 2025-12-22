@@ -31,11 +31,13 @@ Route::get('/laporan/detail', function () {
     return view('detail_laporan');
 });
 
-// Route Halaman Buat Laporan
-Route::get('/laporan/buat', function () {
-    return view('buat_laporan');
-});
+use App\Http\Controllers\ReportController;
 
+// Rute untuk menampilkan halaman form (ini yang sudah ada)
+Route::get('/laporan/buat', [ReportController::class, 'create'])->name('laporan.create');
+
+// Rute untuk PROSES simpan data (TAMBAHKAN INI)
+Route::post('/laporan/buat', [ReportController::class, 'store'])->name('laporan.store');
 // Route Halaman Profil
 Route::get('/profile', function () {
     return view('profile');

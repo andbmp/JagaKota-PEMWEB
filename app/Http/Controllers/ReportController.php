@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Auth;
 class ReportController extends Controller
 {
+    public function create()
+    {
+        return view('buat_laporan');
+    }
     // Get all reports (Feed)
     public function index(Request $request)
     {
@@ -17,19 +21,13 @@ class ReportController extends Controller
             ->withCount(['likes', 'comments']) // Count social interactions
             ->latest()
             ->paginate(10);
-
+if (!$request->wantsJson()) {
+            return view('laporan', compact('reports'));
+        }
         return response()->json($reports);
     }
 
     // Get single report detail
-    public function show($id)
-    {
-        $report = Report::with(['user', 'comments.user', 'progressUpdates']) // Load related data
-            ->withCount('likes')
-            ->findOrFail($id);
-
-        return response()->json($report);
-    }
 
     // Create a new report
     public function store(Request $request)
@@ -59,11 +57,27 @@ class ReportController extends Controller
             'image_path' => $path ? Storage::url($path) : null,
             'status' => 'pending',
         ]);
-
+if (!$request->wantsJson()) {
+            return redirect('/laporan')->with('success', 'Laporan berhasil dibuat!');
+        }
         return response()->json([
             'message' => 'Report submitted successfully',
             'data' => $report
         ], 201);
+        return redirect('/laporan')->with('success', 'Laporan berhasil dikirim!');
+    }
+
+public function show($id)
+    {
+        $report = Report::with(['user', 'comments.user', 'progressUpdates'])
+            ->withCount('likes')
+            ->findOrFail($id);
+            
+        if (!request()->wantsJson()) {
+             return view('detail_laporan', compact('report'));
+        }
+
+        return response()->json($report);
     }
 
     // Add progress update (For admin or official replies)

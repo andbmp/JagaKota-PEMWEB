@@ -122,14 +122,29 @@
         height: 100%;
         object-fit: cover;
     }
-
+.remove-file {
+        display: none; /* Sembunyi secara default */
+        cursor: pointer;
+        padding: 12px 15px;
+        color: #ff4d4d;
+        font-weight: bold;
+        font-size: 1.2rem;
+        transition: 0.3s;
+    }
+    .remove-file:hover {
+        color: #cc0000;
+    }
+    .file-input-btn {
+        justify-content: space-between; /* Agar teks dan silang berjauhan */
+        width: 100%;
+    }
 </style>
 
 <div class="container">
     <h2 class="fw-bold mt-4 mb-2">Tulis, Unggah, Perubahan.</h2>
     
     <div class="form-card">
-        <form action="" method="POST" enctype="multipart/form-data">
+       <form action="{{ url('/laporan/buat') }}" method="POST" enctype="multipart/form-data">
             @csrf
             
             <div class="row">
@@ -172,16 +187,19 @@
                         </div>
                     </div>
 
-                    <div class="mb-4">
-                        <label class="form-label">Foto</label>
-                        <div class="file-input-wrapper">
-                            <div class="file-input-btn">
-                                <span class="file-btn-label">pilih file</span>
-                                <span class="file-btn-text">Tidak ada file dipilih</span>
-                            </div>
-                            <input type="file" name="foto_laporan">
-                        </div>
-                    </div>
+ <div class="mb-4">
+    <label class="form-label">Foto</label>
+    <div class="file-input-wrapper">
+        <div class="file-input-btn d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <span class="file-btn-label">pilih file</span>
+                <span id="file-btn-text" class="file-btn-text">Tidak ada file dipilih</span>
+            </div>
+            <span id="remove-file-btn" class="remove-file" style="display: none; padding-right: 15px; cursor: pointer; color: red; font-weight: bold;">&times;</span>
+        </div>
+        <input type="file" name="foto_laporan" id="file-input-actual" accept="image/*">
+    </div>
+</div>
 
                     <div class="row">
                         <div class="col-md-6 mb-2 mb-md-0">
@@ -217,3 +235,39 @@
     </div>
 </div>
 @endsection
+<script>
+    // 1. Ambil elemen-elemen yang dibutuhkan
+    const fileInput = document.getElementById('file-input-actual');
+    const fileText = document.getElementById('file-btn-text');
+    const removeBtn = document.getElementById('remove-file-btn');
+
+    // 2. Deteksi saat user memilih file
+    fileInput.addEventListener('change', function() {
+        if (this.files && this.files.length > 0) {
+            // Ubah teks "Tidak ada file" menjadi nama file asli
+            fileText.innerText = this.files[0].name;
+            fileText.style.color = "#333"; // Ubah warna jadi gelap
+            fileText.style.fontStyle = "normal";
+            
+            // Tampilkan tombol silang (X)
+            removeBtn.style.display = "block";
+        }
+    });
+
+    // 3. Deteksi saat tombol silang (X) diklik
+    removeBtn.addEventListener('click', function(e) {
+        // Stop klik agar tidak memicu input file lagi
+        e.preventDefault(); 
+        
+        // Reset input file
+        fileInput.value = ""; 
+        
+        // Kembalikan teks ke awal
+        fileText.innerText = "Tidak ada file dipilih";
+        fileText.style.color = "#888";
+        fileText.style.fontStyle = "italic";
+        
+        // Sembunyikan lagi tombol silang
+        removeBtn.style.display = "none";
+    });
+</script>
