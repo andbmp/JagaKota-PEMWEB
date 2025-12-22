@@ -4,19 +4,15 @@
 
 @section('content')
 <style>
-    /* --- Styles Khusus Halaman Laporan --- */
     body {
         background-color: #FEF9F0;
-        /* Gambar garis kota di bagian bawah halaman */
-        background-image: url('public/image/reportcarrousel-background.svg');
+        background-image: url('{{ asset('image/reportcarrousel-background.svg') }}');
         background-position: bottom;
         background-repeat: repeat-x;
         background-size: contain; 
         min-height: 100vh;
     }
 
-
-    /* Filter Section (Card Atas) */
     .filter-card {
         background: white;
         border-radius: 12px;
@@ -24,47 +20,23 @@
         border: none;
         box-shadow: 0 2px 10px rgba(0,0,0,0.03);
     }
+
     .form-select-custom {
-        background-color: #F2E8D5; /* Warna krem input */
+        background-color: #F2E8D5;
         border: none;
         padding: 12px;
         border-radius: 8px;
         color: #555;
     }
 
-    /* Tombol-tombol */
-    .btn-sage {
-        background-color: #6A8E72;
-        color: white;
-        border: none;
-        padding: 8px 20px;
-        border-radius: 6px;
-        font-weight: 600;
-    }
+    .btn-sage { background-color: #6A8E72; color: white; border: none; padding: 8px 20px; border-radius: 6px; font-weight: 600; }
     .btn-sage:hover { background-color: #587960; color: white; }
 
-    .btn-gray {
-        background-color: #D9D9D9;
-        color: #333;
-        border: none;
-        padding: 8px 20px;
-        border-radius: 6px;
-        font-weight: 600;
-    }
-    .btn-gray:hover { background-color: #c0c0c0; }
-
-    .btn-gold {
-        background-color: #D6B656; /* Warna emas/kuning tombol detail */
-        color: white;
-        border: none;
-        width: 100%;
-        padding: 8px;
-        border-radius: 8px;
-        font-weight: 600;
-    }
+    .btn-gray { background-color: #D9D9D9; color: #333; border: none; padding: 8px 20px; border-radius: 6px; font-weight: 600; }
+    
+    .btn-gold { background-color: #D6B656; color: white; border: none; width: 100%; padding: 8px; border-radius: 8px; font-weight: 600; }
     .btn-gold:hover { background-color: #c4a548; color: white; }
 
-    /* Card Laporan */
     .report-card {
         background: white;
         border-radius: 12px;
@@ -73,22 +45,24 @@
         transition: transform 0.2s;
         height: 100%;
     }
+
     .report-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
+
     .report-img-wrapper {
         position: relative;
         height: 180px;
         background-color: #ddd;
     }
+
     .report-img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
     
-    /* Badge Status */
     .badge-status {
         position: absolute;
         top: 10px;
@@ -99,58 +73,34 @@
         font-weight: 600;
         color: #333;
     }
-    .status-diterima { background-color: #A3D9A5; } /* Hijau Muda */
-    .status-diproses { background-color: #FCEEB5; } /* Kuning Muda */
-    .status-ditolak { background-color: #FFB3B3; }  /* Merah Muda */
 
-    .report-body {
-        padding: 15px;
-    }
-    .report-title {
-        font-weight: 700;
-        font-size: 1rem;
-        margin-bottom: 5px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    .report-meta {
-        font-size: 0.85rem;
-        color: #666;
-        margin-bottom: 15px;
-    }
+    .status-diterima { background-color: #A3D9A5; } 
+    .status-diproses { background-color: #FCEEB5; } 
+    .status-ditolak { background-color: #FFB3B3; }
 
-    /* Pagination Bar Bawah */
-    .pagination-bar {
-        background: white;
-        border-radius: 12px;
-        padding: 15px 25px;
-        border: 1px solid #eee;
-    }
+    .report-body { padding: 15px; }
+    .report-title { font-weight: 700; font-size: 1rem; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .report-meta { font-size: 0.85rem; color: #666; margin-bottom: 15px; }
+
+    .pagination-bar { background: white; border-radius: 12px; padding: 15px 25px; border: 1px solid #eee; }
 </style>
 
-
-
 <div class="container py-4">
-
     <div class="filter-card mb-4">
         <h5 class="fw-bold">Cari laporan</h5>
         <p class="text-muted small mb-3">Cari laporan berdasarkan provinsi dan kabupaten/kota</p>
-        
         <form action="">
             <div class="row g-3">
                 <div class="col-md-6">
                     <select class="form-select form-select-custom">
                         <option selected>Provinsi</option>
                         <option value="1">Jawa Barat</option>
-                        <option value="2">DKI Jakarta</option>
                     </select>
                 </div>
                 <div class="col-md-6">
                     <select class="form-select form-select-custom">
                         <option selected>Kabupaten/Kota</option>
                         <option value="1">Bogor</option>
-                        <option value="2">Bandung</option>
                     </select>
                 </div>
             </div>
@@ -172,107 +122,64 @@
         </div>
         <div class="col-md-10">
             <div class="input-group">
-                <span class="input-group-text bg-white border-end-0">
-                    <i class="bi bi-search"></i>
-                </span>
+                <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
                 <input type="text" class="form-control border-start-0 ps-0" placeholder="Cari judul, deskripsi, atau lokasi">
             </div>
         </div>
     </div>
 
     <div class="row g-4 mb-5">
-        
+        @forelse($reports as $report)
         <div class="col-md-3">
             <div class="report-card">
                 <div class="report-img-wrapper">
-                    <img src="https://placehold.co/300x200/png?text=Jalan+Rusak" class="report-img" alt="Laporan">
-                    <span class="badge-status status-diterima">Diterima</span>
-                </div>
-                <div class="report-body">
-                    <h6 class="report-title">Jalan rusak di Jalan Ciganitri</h6>
-                    <div class="text-muted small mb-2">
-                        <i class="bi bi-geo-alt-fill"></i> Kota Bogor
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center report-meta">
-                        <span>@BudiSiregar</span>
-                        <span>24/01/2025</span>
-                    </div>
-                    <a href="{{ url('/laporan/detail') }}" class="btn btn-gold">Lihat Detail</a>
-                </div>
-            </div>
-        </div>
+                    @if($report->image_path)
+                        <img src="{{ asset('storage/' . $report->image_path) }}" class="report-img" alt="Foto Laporan">
+                    @else
+                        <img src="https://placehold.co/300x200/png?text=Tidak+Ada+Foto" class="report-img" alt="Default">
+                    @endif
 
-        <div class="col-md-3">
-            <div class="report-card">
-                <div class="report-img-wrapper">
-                    <img src="https://placehold.co/300x200/png?text=Plang+Jatoh" class="report-img" alt="Laporan">
-                    <span class="badge-status status-diproses">Diproses</span>
+                    @php
+                        $statusClass = 'status-diproses';
+                        if($report->status == 'diterima' || $report->status == 'selesai') $statusClass = 'status-diterima';
+                        if($report->status == 'ditolak') $statusClass = 'status-ditolak';
+                    @endphp
+                    <span class="badge-status {{ $statusClass }}">
+                        {{ ucfirst($report->status) }}
+                    </span>     
                 </div>
-                <div class="report-body">
-                    <h6 class="report-title">Plang Jatoh</h6>
-                    <div class="text-muted small mb-2">
-                        <i class="bi bi-geo-alt-fill"></i> Kota Bogor
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center report-meta">
-                        <span>@BudiSiregar</span>
-                        <span>20/01/2025</span>
-                    </div>
-                    <a href="#" class="btn btn-gold">Lihat Detail</a>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-3">
-            <div class="report-card">
-                <div class="report-img-wrapper">
-                    <img src="https://placehold.co/300x200/png?text=Kursi+Roboh" class="report-img" alt="Laporan">
-                    <span class="badge-status status-diterima">Diterima</span>
-                </div>
                 <div class="report-body">
-                    <h6 class="report-title">Kursi publik roboh sebelah</h6>
+                    <h6 class="report-title">{{ $report->title }}</h6>
                     <div class="text-muted small mb-2">
-                        <i class="bi bi-geo-alt-fill"></i> Kota Bogor
+                        <i class="bi bi-geo-alt-fill"></i> {{ $report->location }}
                     </div>
+                    
                     <div class="d-flex justify-content-between align-items-center report-meta">
-                        <span>@BudiSiregar</span>
-                        <span>29/12/2024</span>
+                        <span>@ {{ $report->user->name ?? 'Anonim' }}</span>
+                        <span>{{ $report->created_at->format('d/m/Y') }}</span>
                     </div>
-                    <a href="#" class="btn btn-gold">Lihat Detail</a>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-3">
-            <div class="report-card">
-                <div class="report-img-wrapper">
-                    <img src="https://placehold.co/300x200/png?text=Papan+Taman" class="report-img" alt="Laporan">
-                    <span class="badge-status status-ditolak">Ditolak</span>
-                </div>
-                <div class="report-body">
-                    <h6 class="report-title">Papan taman dirusak</h6>
-                    <div class="text-muted small mb-2">
-                        <i class="bi bi-geo-alt-fill"></i> Kota Bogor
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center report-meta">
-                        <span>@BudiSiregar</span>
-                        <span>19/11/2024</span>
-                    </div>
-                    <a href="#" class="btn btn-gold">Lihat Detail</a>
+                    <a href="{{ url('/laporan/'.$report->id) }}" class="btn btn-gold">Lihat Detail</a>
                 </div>
             </div>
         </div>
+        @empty
+        <div class="col-12 text-center py-5">
+            <p class="text-muted">Belum ada laporan yang tersedia.</p>
+        </div>
+        @endforelse
     </div>
 
     <div class="pagination-bar d-flex justify-content-between align-items-center shadow-sm">
         <div class="fw-bold small">
-            Halaman 1 dari 1 &bull; Total 4 Laporan
+            Total {{ $reports->total() }} Laporan
         </div>
         <div>
-            <button class="btn btn-light border me-1" disabled>Prev</button>
-            <button class="btn btn-dark">Next</button>
+            {{ $reports->links('pagination::bootstrap-4') }}
         </div>
     </div>
-    
 </div>
+
 <div style="height: 100px;"></div>
 @endsection

@@ -1,74 +1,69 @@
 <?php
+
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ReportController; // Pindahkan semua use ke atas agar rapi
 use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
+
+// --- AUTH SECTION ---
 
 Route::get('/', function () {
     return view('login');
 });
+
+// HAPUS: Bagian ini duplikat dengan baris di bawahnya
+// Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+// Route::post('/login', [AuthController::class, 'login']);
+
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
-// Route untuk menampilkan halaman login
-Route::get('/login', function () {
-    return view('login');
-});
-Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
-// Route Halaman Daftar (Register) - TAMBAHKAN INI
+
+// TAMBAH: Sebaiknya gunakan Controller untuk Register jika ada logikanya nanti
 Route::get('/register', function () {
     return view('register');
+})->name('register');
+
+// TAMBAH: Rute Logout sangat penting
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+// --- USER SECTION (DILINDUNGI AUTH) ---
+
+Route::middleware('auth')->group(function () {
+    
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    // PERBAIKI: Rute /laporan harus lewat Controller agar data $reports muncul
+    // HAPUS: Route::get('/laporan', function () { return view('laporan'); }); 
+    Route::get('/laporan', [ReportController::class, 'index'])->name('laporan.index');
+
+    // PERBAIKI: Rute detail harus menggunakan ID dinamis {id}
+    // HAPUS: Route::get('/laporan/detail', function () { return view('detail_laporan'); });
+    Route::get('/laporan/{id}', [ReportController::class, 'show'])->name('laporan.show');
+
+    // Rute Buat Laporan
+    Route::get('/laporan/buat', [ReportController::class, 'create'])->name('laporan.create');
+    Route::post('/laporan/buat', [ReportController::class, 'store'])->name('laporan.store');
+
+    // Profile & Leaderboard
+    Route::get('/profile', function () { return view('profile'); })->name('profile');
+    Route::get('/profile/edit', function () { return view('edit_profile'); });
+    Route::get('/profile/riwayat', function () { return view('riwayat_laporan'); });
+    Route::get('/leaderboard', function () { return view('leaderboard'); });
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard'); // Pastikan file dashboard.blade.php ada
-})->middleware('auth');
 
-// Route untuk halaman Laporan
-Route::get('/laporan', function () {
-    return view('laporan');
-});
-
-// Route Detail Laporan
-Route::get('/laporan/detail', function () {
-    return view('detail_laporan');
-});
-
-use App\Http\Controllers\ReportController;
-
-// Rute untuk menampilkan halaman form (ini yang sudah ada)
-Route::get('/laporan/buat', [ReportController::class, 'create'])->name('laporan.create');
-
-// Rute untuk PROSES simpan data (TAMBAHKAN INI)
-Route::post('/laporan/buat', [ReportController::class, 'store'])->name('laporan.store');
-// Route Halaman Profil
-Route::get('/profile', function () {
-    return view('profile');
-});
-
-// Route Halaman Edit Profil
-Route::get('/profile/edit', function () {
-    return view('edit_profile');
-});
-
-// Route Halaman Riwayat Laporan
-Route::get('/profile/riwayat', function () {
-    return view('riwayat_laporan');
-});
-
-// Route Papan Peringkat
-Route::get('/leaderboard', function () {
-    return view('leaderboard');
-});
-
-// Route Admin Dashboard
-Route::get('/admin/dashboard', function () {
-    return view('admin_dashboard');
-});
-
-// Route Admin Laporan
-Route::get('/admin/laporan', function () {
-    return view('admin_laporan');
-});
-
-// Route Admin Progress
-Route::get('/admin/progress', function () {
-    return view('admin_progress');
+// --- ADMIN SECTION ---
+// TAMBAH: Sebaiknya kelompokkan admin agar bisa diberi middleware khusus admin nanti
+Route::prefix('admin')->group(function () {
+    Route::get('/dashboard', function () { return view('admin_dashboard'); });
+    Route::get('/laporan', function () { return view('admin_laporan'); });
+    Route::get('/progress', function () { return view('admin_progress'); });
 });

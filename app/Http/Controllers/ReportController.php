@@ -14,18 +14,28 @@ class ReportController extends Controller
     }
     // Get all reports (Feed)
     public function index(Request $request)
-    {
-        // Simple pagination for the feed
-        // You can add filters here based on $request->query() (e.g., status, location)
-        $reports = Report::with('user') // Eager load user
-            ->withCount(['likes', 'comments']) // Count social interactions
-            ->latest()
-            ->paginate(10);
-if (!$request->wantsJson()) {
-            return view('laporan', compact('reports'));
-        }
+{
+    // 1. Inisialisasi query dengan Eager Loading (agar tidak berat saat ambil data user)
+    $query = Report::with('user')
+        ->latest();
+
+    // 2. Logika Filter (Opsional: Jika Anda ingin menambah fitur cari nanti)
+    if ($request->has('search')) {
+        $query->where('title', 'like', '%' . $request->search . '%')
+              ->orWhere('location', 'like', '%' . $request->search . '%');
+    }
+
+    // 3. Ambil data dengan Pagination (Misal: 12 laporan per halaman)
+    $reports = $query->paginate(12);
+
+    // 4. Cek apakah request meminta JSON (untuk API) atau View biasa
+    if ($request->wantsJson()) {
         return response()->json($reports);
     }
+
+    // 5. Kirim data ke view
+    return view('laporan', compact('reports'));
+}
 
     // Get single report detail
 
@@ -68,18 +78,16 @@ if (!$request->wantsJson()) {
     }
 
 public function show($id)
-    {
-        $report = Report::with(['user', 'comments.user', 'progressUpdates'])
-            ->withCount('likes')
-            ->findOrFail($id);
-            
-        if (!request()->wantsJson()) {
-             return view('detail_laporan', compact('report'));
-        }
-
-        return response()->json($report);
+{
+    // Hapus ->withCount('likes') karena tabel/kolomnya tidak ada
+    $report = Report::with(['user'])->findOrFail($id);
+        
+    if (!request()->wantsJson()) {
+         return view('detail_laporan', compact('report'));
     }
 
+    return response()->json($report);
+}
     // Add progress update (For admin or official replies)
     public function addProgress(Request $request, $id)
     {
