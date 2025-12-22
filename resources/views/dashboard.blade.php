@@ -151,28 +151,38 @@
         </div>
         <div class="col-md-7">
             <div class="hero-img-container">
-                <img src="https://placehold.co/800x400/png?text=Gambar+Kota" alt="City View" class="hero-img">
+                  <img src="{{ asset('image/About.png') }}" alt="City view" class>
             </div>
         </div>
     </div>
 
-    <div class="mb-5">
-        <h4 class="fw-bold mb-4">Aktivitas Komunitas JagaKota</h4>
-        <div class="row g-3">
-            @for ($i = 0; $i < 4; $i++)
-            <div class="col-6 col-md-3">
-                <div class="activity-card shadow-sm">
-                    <img src="https://placehold.co/300x400/png?text=Foto+Laporan" alt="Activity">
-                    <div class="activity-overlay d-flex justify-content-between">
-                        <span><i class="bi bi-heart"></i> 1.2rb</span>
-                        <span><i class="bi bi-chat"></i> 500</span>
-                        <span><i class="bi bi-geo-alt"></i> Bogor</span>
-                    </div>
+   <div class="mb-5">
+    <h4 class="fw-bold mb-4">Aktivitas Komunitas JagaKota</h4>
+    <div class="row g-3">
+        @php
+            // Daftar gambar dan lokasi yang berbeda
+            $activities = [
+                ['img' => 'jalanrusak.png', 'loc' => 'Bogor', 'like' => '1.2rb'],
+                ['img' => 'trotoarRusak.jpg', 'loc' => 'Jakarta', 'like' => '850'],
+                ['img' => 'plangRusak.jpg', 'loc' => 'Bandung', 'like' => '2.1rb'],
+                ['img' => 'tamanrusak.jpg', 'loc' => 'Depok', 'like' => '500'],
+            ];
+        @endphp
+
+        @foreach ($activities as $item)
+        <div class="col-6 col-md-3">
+            <div class="activity-card shadow-sm">
+                <img src="{{ asset('image/' . $item['img']) }}" alt="Aktivitas">
+                <div class="activity-overlay d-flex justify-content-between">
+                    <span><i class="bi bi-heart"></i> {{ $item['like'] }}</span>
+                    <span><i class="bi bi-chat"></i> 500</span>
+                    <span><i class="bi bi-geo-alt"></i> {{ $item['loc'] }}</span>
                 </div>
             </div>
-            @endfor
         </div>
+        @endforeach
     </div>
+</div>
 
     <div class="mb-5 text-center">
         <h5 class="fw-bold mb-3">Pertanyaan yg sering diajukan</h5>
@@ -196,7 +206,7 @@
                     </button>
                 </h2>
                 <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#accordionFAQ">
-                    <div class="accordion-body text-start">Klik tombol 'Buat Laporan' di navbar...</div>
+                    <div class="accordion-body text-start">Klik tombol 'Buat Laporan' di navbar, sertakan bukti lampiran berupa foto yang akan dilaporkan, isi format untuk mengirim</div>
                 </div>
             </div>
             </div>

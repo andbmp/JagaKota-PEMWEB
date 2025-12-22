@@ -206,7 +206,7 @@
                 <div class="col-lg-5 mt-4 mt-lg-0">
                     <h5 class="fw-bold mb-2">Pilih lokasi di Peta</h5>
                     <div class="map-container mb-3">
-                        <img src="https://placehold.co/600x400/e0e0e0/888?text=Peta+Lokasi" class="map-img">
+                        <img src="{{ asset('image/petaMonas.jpg') }}"  class="map-img" alt="Map">
                     </div>
                 </div>
             </div>

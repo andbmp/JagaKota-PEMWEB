@@ -49,8 +49,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/laporan/{id}', [ReportController::class, 'show'])->name('laporan.show');
 
     // Rute Buat Laporan
-    Route::get('/laporan/buat', [ReportController::class, 'create'])->name('laporan.create');
-    Route::post('/laporan/buat', [ReportController::class, 'store'])->name('laporan.store');
+   Route::get('/buat-laporan', [ReportController::class, 'create'])->name('laporan.create');
+
+// Jalur untuk memproses penyimpanan laporan
+Route::post('/laporan/store', [ReportController::class, 'store'])->name('laporan.store');
 
     // Profile & Leaderboard
     Route::get('/profile', function () { return view('profile'); })->name('profile');

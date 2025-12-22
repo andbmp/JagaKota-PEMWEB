@@ -120,5 +120,6 @@ public function show($id)
             'message' => 'Progress updated successfully',
             'data' => $report
         ]);
+
     }
 }

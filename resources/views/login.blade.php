@@ -9,7 +9,7 @@
     body {
         background-color: #FEF9F0; /* Warna krem background */
         /* Jika Anda punya gambar kota background, uncomment baris bawah ini: */
-        background-image: url('public/image/reportcarrousel-background.svg');
+        background-image: url("{{ asset('image/background.jpg') }}");
         background-position: bottom;
         background-repeat: no-repeat;
         background-size: contain;
@@ -147,4 +147,9 @@
     
     <div style="height: 50px;"></div>
 </div>
+
+<div class="text-end mt-4">
+                <a href="#" class="admin-link">Mode Admin</a>
+            </div>
 @endsection
+

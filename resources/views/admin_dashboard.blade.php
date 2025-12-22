@@ -175,7 +175,7 @@
     
     <div class="admin-sidebar">
         <div class="sidebar-logo">
-            <img src="https://placehold.co/30" alt="Logo">
+           <img src="{{ asset('image/JagaKotaa.png') }}" alt="Logo">
             JagaKota
         </div>
 
@@ -257,31 +257,31 @@
                 
                 <div class="scrollable-list">
                     <div class="preview-card">
-                        <img src="https://placehold.co/100x80/png?text=Jalan" class="preview-img">
+                        <img src="{{ asset('image/jalanrusak.png') }}" class="preview-img">
                         <div class="preview-info">
                             <div class="fw-bold"><i class="bi bi-heart"></i> 1,2rb &nbsp; <i class="bi bi-paperclip"></i> 50</div>
                             <div class="text-muted mt-1">Kota Bogor.</div>
                         </div>
                     </div>
                     <div class="preview-card">
-                        <img src="https://placehold.co/100x80/png?text=Plang" class="preview-img">
+                         <img src="{{ asset('image/trotoarRusak.jpg') }}" class="preview-img">
                         <div class="preview-info">
                             <div class="fw-bold"><i class="bi bi-heart"></i> 204 &nbsp; <i class="bi bi-paperclip"></i> 5</div>
                             <div class="text-muted mt-1">Kota Bogor.</div>
                         </div>
                     </div>
                     <div class="preview-card">
-                        <img src="https://placehold.co/100x80/png?text=Kursi" class="preview-img">
+                       <img src="{{ asset('image/plangRusak.jpg') }}" class="preview-img">
                         <div class="preview-info">
                             <div class="fw-bold"><i class="bi bi-heart"></i> 5,1rb &nbsp; <i class="bi bi-paperclip"></i> 34</div>
-                            <div class="text-muted mt-1">Kota Bogor.</div>
+                            <div class="text-muted mt-1">Kota Probolinggo.</div>
                         </div>
                     </div>
                     <div class="preview-card">
-                        <img src="https://placehold.co/100x80/png?text=Taman" class="preview-img">
+                        <img src="{{ asset('image/tamanrusak.jpg') }}" class="preview-img">
                         <div class="preview-info">
                             <div class="fw-bold"><i class="bi bi-heart"></i> 830 &nbsp; <i class="bi bi-paperclip"></i> 21</div>
-                            <div class="text-muted mt-1">Kota Bogor.</div>
+                            <div class="text-muted mt-1">Kota Bandung.</div>
                         </div>
                     </div>
                 </div>

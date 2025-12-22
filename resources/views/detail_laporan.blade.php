@@ -39,9 +39,9 @@
             <div class="main-image-card shadow-sm">
                 {{-- Foto Dinamis dari Database --}}
                 @if($report->image_path)
-                    <img src="{{ asset('storage/' . $report->image_path) }}" class="main-image" alt="Bukti Laporan">
+                     <img src="{{ asset('image/jalanrusak.png') }}"  class="main-image" alt="Default"">
                 @else
-                    <img src="https://placehold.co/800x500/png?text=Tidak+Ada+Foto" class="main-image" alt="Default">
+                  <img src="{{ asset('image/jalanrusak.png') }}"  class="main-image" alt="Default"">
                 @endif
             </div>
 
@@ -104,7 +104,7 @@
                     <h6 class="fw-bold mb-0"><i class="bi bi-geo-alt"></i> Lokasi di Peta</h6>
                     <button class="btn-route"><i class="bi bi-cursor-fill"></i> Rute</button>
                 </div>
-                <img src="https://placehold.co/400x300/e0e0e0/888?text=Peta+Lokasi" class="map-placeholder" alt="Map">
+                <img src="{{ asset('image/petaMonas.jpg') }}"  class="map-placeholder" alt="Map">
             </div>
 
             <div class="progress-card">

@@ -81,9 +81,9 @@
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('laporan') ? 'active-pill' : '' }}" href="{{ url('/laporan') }}">Laporan</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('laporan/buat') ? 'active-pill' : '' }}" href="{{ url('/laporan/buat') }}">Buat Laporan</a>
-                </li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ url('/buat-laporan') }}">Buat Laporan</a>
+</li>
             </ul>
 
             <div class="d-flex align-items-center">
